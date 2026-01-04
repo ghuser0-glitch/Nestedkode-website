@@ -239,3 +239,40 @@ window.addEventListener('load', () => {
     console.log('%c⚡ 72-Hour Websites - Ready to build your website!', 'color: #2563eb; font-size: 18px; font-weight: bold;');
     console.log('%cPay only after approval • No upfront payment • 72-hour delivery', 'color: #64748b;');
 });
+// Portfolio Filter Functionality
+const filterButtons = document.querySelectorAll('.filter-btn');
+const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+if (filterButtons.length > 0) {
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Get filter value
+            const filterValue = button.getAttribute('data-filter');
+            
+            // Filter portfolio items
+            portfolioItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                
+                if (filterValue === 'all' || category === filterValue) {
+                    item.classList.remove('hidden');
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 10);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.classList.add('hidden');
+                    }, 300);
+                }
+            });
+        });
+    });
+}
